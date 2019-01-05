@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		button {
+			margin-bottom: 10px;
+			width: 80px;
+			height: 30px;
+			line-height: 26px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.progress {
+			width: 400px;
+			height: 32px;
+			line-height: 30px;
+			border: solid 1px #eee;
+			border-radius: 16px;
+			text-align: center;
+			overflow: hidden;
+			color: #333;
+			font-size: 16px;
+			position: relative;
+		}
+		.progress .text {
+			/*vertical-align: middle;*/
+			position: relative;
+			z-index: 10;
+		}
+		.progress .wrap {
+			background: darkorange;
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 30px;
+			transition: width 0.1s;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<button id="btn" type="button">选择文件</button>
+		<!-- 进度条 -->
+		<div class="progress">
+			<span class="text"><span class="num">0.0</span> %</span>
+			<div class="wrap" style="width: 0%"></div>
+		</div>
+	</div>
+
+	<!-- js -->
+	<script type="text/javascript" src="./js/Upload.js"></script>
+	<script type="text/javascript">
+		// 页面DOM
+		var oBtn = document.getElementById('btn');
+		var oNum = document.querySelector('.num');
+		var oWrap = document.querySelector('.wrap');
+		// 实例化上传组件
+		var upload = new Upload(oBtn, {
+			// 上传的服务器接口地址
+			url: 'register.php',	
+			// 服务器接收的表单参数
+			name: 'file',
+			// 上传成功的回调
+			onSuccess: function(res) {
+				console.log('上传成功! ');
+				console.log(res.data);
+			},
+			// 上传进度控制的回调
+			onProgress: function(percentage) {
+				// 页面上实时更新进度条
+				oNum.innerText = (percentage * 100).toFixed(1);
+				oWrap.style.width = (percentage * 100) + '%';
+			},
+			// 上传开始的回调
+			onStart: function(ev) {
+				console.log('上传开始!');
+			},
+			// 上传结束的回调(无论是失败还是成功)
+			onEnd: function(ev) {
+				console.log('上传已结束!');
+				console.log(upload);
+			},
+			// 上传失败的回调
+			onError: function(err) {
+				console.log('上传失败! 错误代码:', err.code, err.message);
+			}
+		});
+	</script>
+</body>
+</html>
