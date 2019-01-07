@@ -1,17 +1,16 @@
 # upload-file
 ## 使用原生js编写的文件上传组件
 
-由于input[type=file]的默认样式无法控制, 采用隐藏原生的input框, 通过给自定义dom元素绑定点击事件去触发隐藏的input的选择浏览文件, 来实现文件上传功能, 已达到样式自定义的要求.
+由于input[type=file]的默认样式无法控制, 采用隐藏原生的input框, 通过给自定义dom元素绑定点击事件去触发隐藏的input的选择浏览文件, 来实现文件上传,上传进度条显示等功能, 已达到样式自定义的要求. 基本用法如下:
 
 html文件中引入Upload.js: 
-(```)
-	  <!-- html -->
+```
     <button id="btn" type="button">选择文件</button>
     <!-- 进度条 -->
-		<div class="progress">
-			<span class="text"><span class="num">0.0</span> %</span>
-			<div class="wrap" style="width: 0%"></div>
-		</div>
+    <div class="progress">
+	<span class="text"><span class="num">0.0</span> %</span>
+	<div class="wrap" style="width: 0%"></div>
+    </div>
     
     <!-- js -->
     <script type="text/javascript" src="./js/Upload.js"></script>
@@ -54,6 +53,6 @@ html文件中引入Upload.js:
         }
       });
     </script>
-(```)
+```
 
 上传文件使用了ajax发送表单的方式请求服务器, 采用HTML5 API的**FormData**来组装文件数据, 因此不兼容IE 10以下的低版本IE浏览器.
