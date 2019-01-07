@@ -51,8 +51,8 @@
 			<span class="text"><span class="num">0.0</span> %</span>
 			<div class="wrap" style="width: 0%"></div>
 		</div>
-	</div>
-
+  </div>
+  
 	<!-- js -->
 	<script type="text/javascript" src="./js/Upload.js"></script>
 	<script type="text/javascript">
@@ -65,7 +65,9 @@
 			// 上传的服务器接口地址
 			url: 'register.php',	
 			// 服务器接收的表单参数
-			name: 'file',
+      name: 'file',
+      // 是否为多文件上传
+      multiple: false,
 			// 上传成功的回调
 			onSuccess: function(res) {
 				console.log('上传成功! ');
@@ -84,12 +86,16 @@
 			// 上传结束的回调(无论是失败还是成功)
 			onEnd: function(ev) {
 				console.log('上传已结束!');
-				console.log(upload);
 			},
 			// 上传失败的回调
 			onError: function(err) {
+        console.error(err);
 				console.log('上传失败! 错误代码:', err.code, err.message);
-			}
+      },
+      // 上传完成的回调
+      onLoad: function(ev) {
+        console.log('loaded!!!');
+      }
 		});
 	</script>
 </body>
